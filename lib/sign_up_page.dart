@@ -45,11 +45,15 @@ class _SignUpPageState extends State<SignUpPage> {
           const SnackBar(content: Text('Account created successfully!')),
         );
 
-        // Navigate to a different page (e.g., HomePage)
+        //Navigate to a different page (e.g., HomePage)
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const HomePage()), // Replace HomePage with your desired screen
         );
+
+
+
+
       } on FirebaseAuthException catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(e.message ?? 'Error occurred')),
