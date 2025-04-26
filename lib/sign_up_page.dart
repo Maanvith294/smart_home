@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'homepage.dart';
+import 'login_page.dart';
 
 
 class SignUpPage extends StatefulWidget {
@@ -41,15 +42,26 @@ class _SignUpPageState extends State<SignUpPage> {
           'createdAt': DateTime.now(),
         });
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Account created successfully!')),
-        );
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(content: Text('Account created successfully!')),
+        // );
 
-        //Navigate to a different page (e.g., HomePage)
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const HomePage()), // Replace HomePage with your desired screen
-        );
+        // //Navigate to a different page (e.g., HomePage)
+        // Navigator.pushReplacement(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => const HomePage()), // Replace HomePage with your desired screen
+        // );
+        // After successful account creation and email verification request
+
+ScaffoldMessenger.of(context).showSnackBar(
+  const SnackBar(content: Text('A verification email has been sent. Please verify and log in.')),
+);
+
+// Navigate to login page instead of HomePage
+Navigator.pushReplacement(
+  context,
+  MaterialPageRoute(builder: (context) => const LoginPage()),
+);
 
 
 

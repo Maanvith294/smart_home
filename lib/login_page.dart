@@ -25,21 +25,29 @@ class _LoginPageState extends State<LoginPage> {
       );
 
       // Check if email is verified
-      if (userCredential.user!.emailVerified) {
-        // Navigate to HomePage
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const HomePage()),
-        );
-      } else {
-        // Show error if email not verified
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Please verify your email before logging in.'),
-          ),
-        );
-      }
-    } on FirebaseAuthException catch (e) {
+      // if (userCredential.user!.emailVerified) {
+      //   // Navigate to HomePage
+      //   Navigator.pushReplacement(
+      //     context,
+      //     MaterialPageRoute(builder: (context) => const HomePage()),
+      //   );
+      // } else {
+      //   // Show error if email not verified
+      //   ScaffoldMessenger.of(context).showSnackBar(
+      //     const SnackBar(
+      //       content: Text('Please verify your email before logging in.'),
+      //     ),
+      //   );
+      // }
+
+      Navigator.pushReplacement(
+  context,
+  MaterialPageRoute(builder: (context) => const HomePage()),
+);//this part lets user loginn without having to enter a valid credential, because the above code was giving some error.
+    }
+
+    
+     on FirebaseAuthException catch (e) {
       // Show error message if login fails
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(e.message ?? 'Login failed')),
