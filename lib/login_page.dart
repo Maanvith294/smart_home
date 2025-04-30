@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'homepage.dart'; // Import the dashboard page
 import 'sign_up_page.dart';
-import 'homepage.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -24,30 +24,24 @@ class _LoginPageState extends State<LoginPage> {
         password: _passwordController.text.trim(),
       );
 
-      // Check if email is verified
-      // if (userCredential.user!.emailVerified) {
-      //   // Navigate to HomePage
-      //   Navigator.pushReplacement(
-      //     context,
-      //     MaterialPageRoute(builder: (context) => const HomePage()),
-      //   );
-      // } else {
-      //   // Show error if email not verified
-      //   ScaffoldMessenger.of(context).showSnackBar(
-      //     const SnackBar(
-      //       content: Text('Please verify your email before logging in.'),
-      //     ),
-      //   );
-      // }
-
-      Navigator.pushReplacement(
-  context,
-  MaterialPageRoute(builder: (context) => const HomePage()),
-);//this part lets user loginn without having to enter a valid credential, because the above code was giving some error.
-    }
-
-    
-     on FirebaseAuthException catch (e) {
+      // Check if the email is verified
+      if (userCredential.user!.emailVerified) {
+        // Navigate to DashboardPage
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomePage(houseID: 'houseID_12345'), // Pass the houseID (This can be dynamic)
+          ),
+        );
+      } else {
+        // Show error if email is not verified
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Please verify your email before logging in.'),
+          ),
+        );
+      }
+    } on FirebaseAuthException catch (e) {
       // Show error message if login fails
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(e.message ?? 'Login failed')),
@@ -68,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
-        backgroundColor: Colors.teal,
+        backgroundColor: const Color.fromARGB(255, 36, 131, 121),
       ),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
